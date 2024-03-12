@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package crud;
+
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/MBI-88/fiber-grpc-crud/grpc";
+
+message User {
+    uint16 id = 1;
+    string name = 2;
+    string dni = 3;
+    string phone = 4;
+    string website = 5;
+    string address = 6;
+    strign password = 7;
+    google.protobuf.Timestamp create_at = 8;
+}
+
+message CreateUserRequest {
+    string name = 1 [
+        (validate.rules).string.pattern = "^\\w{8,12}$"
+    ];
+    string dni = 2 [
+        (validate.rules).string.pattern = "^\\d{8}[A-Za-z]$"
+    ];
+    string phone = 3 [
+        (validate.rules).string.pattern = "^+598\d{8}$"
+    ];
+    string website = 4 [
+        (validate.rules).string.pattern = "^(https?://)[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
+    ];
+    string address = 5 [
+        (validate.rules).string.max_len = 100
+    ];
+    string password = 6 [
+        (validate.rules).string.pattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{8,12}$"
+    ];
+
+}
+message CreateUserResponse {
+    string message = 1;
+}
+
+
+message ListUserRequest {
+}
+message ListUserResponse {
+    repeated User users = 1;
+}
+
+
+message UpdateUserRequest {
+    User user = 1;
+}
+message UpdateUserRespose {
+    string message = 1;
+}
+
+
+message DeleteUserRequest {
+    uint16 id = 1;
+}
+message DeleteUserResponse {
+    string message = 1;
+}
+
+
+service UserService {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserRespose);
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+    rpc GetUser(ListUserRequest) returns (ListUserResponse);
+}
