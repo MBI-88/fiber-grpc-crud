@@ -9,13 +9,15 @@ import (
 type Config struct {
 	Key  string
 	Host string
-	Port int16
+	Port int32
+	Dsn  string
 }
 
 func (c *Config) setEnv() {
 	c.Host = viper.GetString("HOST")
-	c.Port = int16(viper.GetInt32("PORT"))
+	c.Port = viper.GetInt32("PORT")
 	c.Key = viper.GetString("KEY")
+	c.Dsn = viper.GetString("DSN")
 
 }
 

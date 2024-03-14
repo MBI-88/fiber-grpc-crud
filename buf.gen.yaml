@@ -1,6 +1,6 @@
 version: v1
 plugins:
-  - plugin: go 
+  - plugin: go
     out: grpc
     opt: paths=source_relative
   - plugin: go-grpc
