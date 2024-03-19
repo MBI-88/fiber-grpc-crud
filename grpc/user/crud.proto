@@ -1,11 +1,10 @@
 syntax = "proto3";
 
-package crud;
+package user;
 
 import "validate/validate.proto";
-import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/MBI-88/fiber-grpc-crud/grpc/crud";
+option go_package = "grpc/user";
 
 message User {
     uint32 id = 1;
@@ -15,7 +14,6 @@ message User {
     string website = 5;
     string address = 6;
     string password = 7;
-    google.protobuf.Timestamp create_at = 8;
 }
 
 message CreateUserRequest {

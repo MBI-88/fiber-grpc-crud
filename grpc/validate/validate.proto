@@ -2,7 +2,7 @@ syntax = "proto2";
 
 package validate;
 
-option go_package = "github.com/MBI-88/fiber-grpc-crud/grpc/validate";
+option go_package = "grpc/validate";
 option java_package = "io.envoyproxy.pgv.validate";
 
 import "google/protobuf/descriptor.proto";

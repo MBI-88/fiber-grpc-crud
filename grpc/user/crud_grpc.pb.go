@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: crud/crud.proto
 
-package crud
+package user
 
 import (
 	context "context"
