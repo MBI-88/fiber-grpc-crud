@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-grpc
+spec:
+  containers:
+    - name: client-grpc-container
+      image: "..." # hay que crear la imagen
+      imagePullPolicy: Always
+  restartPolicy: Never
