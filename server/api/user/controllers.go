@@ -3,10 +3,11 @@ package user
 import (
 	"context"
 
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 	pb "grpc/user"
 	"server/models"
+
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type user struct {
@@ -15,17 +16,8 @@ type user struct {
 }
 
 func (u *user) CreateUser(_ context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
-	if len(req.Dni) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Dni empty")
-	}
-	if len(req.Name) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Name empty")
-	}
-	if len(req.Phone) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Phone emtpy")
-	}
-	if len(req.Password) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Password emtpy")
+	if err := req.ValidateAll(); err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
 	u.m.Name =  req.Name
@@ -72,9 +64,9 @@ func (u *user) DeleteUser(_ context.Context, req *pb.DeleteUserRequest) (*pb.Del
 }
 
 func (u user) GetUser(_ context.Context, req *pb.ListUserRequest) (*pb.ListUserResponse, error) {
-	listUser, err := u.m.GetUsers()
+	users, err := u.m.GetUsers()
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
-	return &pb.ListUserResponse{Users: listUser}, nil
+	return &pb.ListUserResponse{Users: users}, nil
 }

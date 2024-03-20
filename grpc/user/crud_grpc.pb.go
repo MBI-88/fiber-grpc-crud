@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: crud/crud.proto
+// source: user/crud.proto
 
 package user
 
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_CreateUser_FullMethodName = "/crud.UserService/CreateUser"
-	UserService_UpdateUser_FullMethodName = "/crud.UserService/UpdateUser"
-	UserService_DeleteUser_FullMethodName = "/crud.UserService/DeleteUser"
-	UserService_GetUser_FullMethodName    = "/crud.UserService/GetUser"
+	UserService_CreateUser_FullMethodName = "/user.UserService/CreateUser"
+	UserService_UpdateUser_FullMethodName = "/user.UserService/UpdateUser"
+	UserService_DeleteUser_FullMethodName = "/user.UserService/DeleteUser"
+	UserService_GetUser_FullMethodName    = "/user.UserService/GetUser"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -195,7 +195,7 @@ func _UserService_GetUser_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "crud.UserService",
+	ServiceName: "user.UserService",
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -216,5 +216,5 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "crud/crud.proto",
+	Metadata: "user/crud.proto",
 }

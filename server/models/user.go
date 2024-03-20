@@ -2,12 +2,13 @@ package models
 
 import (
 	pb "grpc/user"
+	"math/rand"
 	"server/tools"
 	"time"
 )
 
 type User struct {
-	ID        uint32     `gorm:"primaryKey,omitempty"`
+	ID        uint32    `gorm:"primaryKey"`
 	Name      string    `gorm:"name,omitempty"`
 	Password  string    `gorm:"password,omitempty"`
 	Dni       string    `gorm:"dni,omitempty"`
@@ -23,6 +24,7 @@ func (u *User) CreateUser() error {
 	if err != nil {
 		return err
 	}
+	u.ID = uint32(rand.Intn(1000))
 	u.Password = password 
 	if err := DB.Create(u).Error; err != nil {
 		go loggerError.Printf("Operation CreateUser => %s", err)
@@ -58,7 +60,6 @@ func (u User) GetUsers() ([]*pb.User, error) {
 	var (
 		us []User
 		pbU []*pb.User
-		p = new(pb.User)
 	)
 
 	if err := DB.Find(&us).Error; err != nil {
@@ -67,6 +68,7 @@ func (u User) GetUsers() ([]*pb.User, error) {
 	}
 
 	for _, i := range us {
+		p := new(pb.User)
 		p.Address = i.Address
 		p.Dni = i.Dni
 		p.Id = i.ID

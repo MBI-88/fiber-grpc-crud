@@ -17,7 +17,7 @@ message User {
 }
 
 message CreateUserRequest {
-    string name = 1 [(validate.rules).string.pattern = "^\\w{8,12}$"];
+    string name = 1 [(validate.rules).string.pattern = "^[a-zA-Z0-9-_\\s]{3,10}$"];
     string dni = 2 [(validate.rules).string.pattern = "^\\d{8}[A-Za-z]$"];
     string phone = 3 [(validate.rules).string.pattern = "^\\+598\\d{8}$"];
     string website = 4 [(validate.rules).string.pattern = "^(https?://)[\\w\\-]+(\\.[\\w\\-]+)+[/#?]?.*$"];
